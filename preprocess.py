@@ -4,7 +4,7 @@ from multiprocessing import Pool
 from telnetlib import PRAGMA_HEARTBEAT
 
 from requests import patch
-from Transformer.handle import init_preprocess_options
+from config.args_options import init_preprocess_options
 import os
 import pickle
 
@@ -31,7 +31,7 @@ def handle_data_multi_process(
     for src_line, tgt_line in zip(src_lines, tgt_lines):
         src_res.append(
             [
-                word2idx[i] if i in word2idx else word2idx["unk"]
+                word2idx[i] if i in word2idx else word2idx["<unk>"]
                 for i in src_line.strip().split(" ")
             ]
         )
@@ -41,7 +41,7 @@ def handle_data_multi_process(
         else:
             tgt_res.append(
                 [
-                    word2idx[i] if i in word2idx else word2idx["unk"]
+                    word2idx[i] if i in word2idx else word2idx["<unk>"]
                     for i in tgt_line.strip().split(" ")
                 ]
             )
@@ -55,7 +55,7 @@ def handle_args(args):
     Args:
         args : command line arguments
     """
-    word2idx = {"<pad>": 0, "<bos>": 1, "<eos>": 2, "unk": 3}  # unk for unkown tokens
+    word2idx = {"<pad>": 0, "<bos>": 1, "<eos>": 2, "<unk>": 3}  # unk for unkown tokens
     root_dir: str = args.data_path
     if root_dir[-1] in ["/", "\\"]:
         root_dir = root_dir[:-1]
@@ -123,13 +123,14 @@ def handle_args(args):
                 tgt_res += res[1]
 
         with open(
-            os.path.join(dist_dir, f"{split}.{args.src_lang}"), "wb", encoding="utf-8"
+            os.path.join(dist_dir, f"{split}.{args.src_lang}"), "wb"
         ) as src, open(os.path.join(dist_dir, f"{split}.{args.tgt_lang}"), "wb") as tgt:
             pickle.dump(src_res, src)
             pickle.dump(tgt_res, tgt)
 
 
 if __name__ == "__main__":
+    os.chdir(os.path.dirname(__file__))
     parser = ArgumentParser()
     parser = init_preprocess_options(parser)
     args = parser.parse_args()
