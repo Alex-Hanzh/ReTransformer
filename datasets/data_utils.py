@@ -1,12 +1,11 @@
-import imp
 from torchtext.legacy.data import Field, BucketIterator
 from torchtext.legacy.datasets.translation import Multi30k
 import spacy
 
 
 class Dataloader:
-    source: Field = None
-    target: Field = None
+    source: Field
+    target: Field
 
     def __init__(self, ext, tokenize_en, tokenize_de, init_token, eos_token):
         self.ext = ext
