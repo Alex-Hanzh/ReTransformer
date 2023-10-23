@@ -1,4 +1,5 @@
 import yaml
+import os
 
 
 class YamlHandler:
@@ -8,4 +9,3 @@ class YamlHandler:
     def read_yaml(self):
         with open(self.file, "r", encoding="utf-8") as f:
             return yaml.load(f.read(), Loader=yaml.FullLoader)
-        

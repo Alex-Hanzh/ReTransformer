@@ -1,6 +1,5 @@
-from .data_utils import Dataloader, Tokenizer
-from utils.conf import *
-
+from .data_utils import Tokenizer, Dataloader
+from utils import *
 
 tokenizer = Tokenizer()
 
@@ -18,6 +17,7 @@ loader.build_vocab(train_data=train, min_freq=2)
 train_iter, valid_iter, test_iter = loader.make_iter(
     train, valid, test, batch_size=config["data"]["batch_size"], device=device
 )
+
 
 src_pad_idx = loader.source.vocab.stoi["<pad>"]
 tgt_pad_idx = loader.target.vocab.stoi["<pad>"]

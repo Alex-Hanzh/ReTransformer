@@ -49,7 +49,7 @@ class Dataloader:
             )
 
         train_data, valid_data, test_data = Multi30k.splits(
-            exts=self.ext, fields=(self.source, self.target)
+            exts=self.ext, fields=(self.source, self.target), root="data"
         )
         return train_data, valid_data, test_data
 

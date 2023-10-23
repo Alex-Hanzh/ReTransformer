@@ -9,6 +9,5 @@ class LayerNorm(nn.Module):
         self.beta = nn.parameter.Parameter(torch.ones(d_model))
         self.eps = eps
 
-    def forward(self,x:torch.Tensor):
-        mean = x.mean()
- 
+    def forward(self, x: torch.Tensor):
+        mean = x.mean(dim=-1, keepdim=True)

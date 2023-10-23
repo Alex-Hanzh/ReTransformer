@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
+import os
 
-import argparse
+os.chdir(os.path.dirname(__file__))
 
-parser = argparse.ArgumentParser(description="Process some integers.")
-parser.add_argument("square", help="display a square of a given number", type=int)
-args = parser.parse_args()
-print(args.square**2) 
+from datasets import *
+import yaml
+
+for i, batch in enumerate(train_iter):
+    src = batch.src
+    print(src[0])
+    input()
