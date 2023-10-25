@@ -1,5 +1,3 @@
-from turtle import forward
-from colorama import deinit
 import torch
 import torch.nn as nn
 
